@@ -1,0 +1,14 @@
+sequenceDiagram
+  autonumber
+  participant C as Client
+  participant I as Authorization Server
+  participant G as API Gateway
+  participant S as Service
+
+  C->>I: Obtain access token (flow adapté)
+  I-->>C: access_token (JWT)
+  C->>G: Call API + Bearer token
+  G->>G: Validate signature, iss, aud, exp
+  G->>S: Forward request (claims minimales)
+  S-->>G: Response
+  G-->>C: Response

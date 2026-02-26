@@ -1,0 +1,33 @@
+flowchart LR
+  subgraph Sources[Sources d'identité]
+    HR[HR / Référentiel]
+    DIR[Annuaire / Identity Graph]
+  end
+
+  subgraph Control[IAM Control Plane]
+    IdP[IdP: SSO + MFA/Passkeys]
+    SCIM[Provisioning SCIM]
+    PDP[PDP: Policy Decision (OPA/...) ]
+    PAM[PAM: JIT + Vault + Bastion]
+    ITDR[ITDR + SIEM/SOAR]
+  end
+
+  subgraph Exec[Plan d'exécution]
+    Apps[Apps (web/mobile/legacy)]
+    API[API Gateway / WAF]
+    Svc[Microservices]
+    K8s[Kubernetes/OpenShift]
+  end
+
+  HR --> DIR
+  DIR --> IdP
+  IdP --> Apps
+  Apps --> API
+  API --> Svc
+  SCIM --> Apps
+  SCIM --> Svc
+  API --> PDP
+  Svc --> PDP
+  PAM --> K8s
+  ITDR --> IdP
+  ITDR --> API

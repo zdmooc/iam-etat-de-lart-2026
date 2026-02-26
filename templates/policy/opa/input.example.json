@@ -1,0 +1,17 @@
+{
+  "user": {
+    "id": "u123",
+    "roles": [
+      "viewer"
+    ]
+  },
+  "token": {
+    "scopes": [
+      "read"
+    ]
+  },
+  "resource": {
+    "id": "doc-1",
+    "classification": "public"
+  }
+}

@@ -1,0 +1,12 @@
+flowchart TB
+  EDR[EDR/Device Risk] --> SIG[Shared Signals (SSF/CAEP/RISC)]
+  SIEM[SIEM/ITDR] --> SIG
+  SaaS[SaaS Apps] --> SIG
+
+  SIG --> IdP[IdP: Session control]
+  SIG --> GW[API Gateway / Access layer]
+  SIG --> SOAR[SOAR Playbooks]
+
+  IdP -->|Re-auth / Kill session| Users[Users]
+  GW -->|Revoke / Enforce| Apps[Apps/APIs]
+  SOAR -->|Automations| Ops[SecOps]

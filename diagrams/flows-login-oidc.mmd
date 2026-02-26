@@ -1,0 +1,14 @@
+sequenceDiagram
+  autonumber
+  participant U as Utilisateur
+  participant A as Application
+  participant I as IdP (OIDC)
+  participant T as Token endpoint
+
+  U->>A: Accès ressource
+  A->>I: Redirect /authorize (Auth Code + PKCE)
+  I->>U: Auth (MFA/Passkey)
+  I-->>A: Redirect avec code
+  A->>T: Échange code -> tokens (PKCE)
+  T-->>A: ID token + access token (+ refresh token)
+  A-->>U: Session applicative

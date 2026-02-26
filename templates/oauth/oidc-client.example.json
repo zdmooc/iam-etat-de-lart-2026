@@ -1,0 +1,17 @@
+{
+  "client_id": "example-app",
+  "client_type": "confidential_or_public",
+  "redirect_uris": [
+    "https://app.example.com/callback"
+  ],
+  "grant_types": [
+    "authorization_code"
+  ],
+  "pkce": "S256",
+  "scopes": [
+    "openid",
+    "profile",
+    "email"
+  ],
+  "notes": "Adapter aux capacités de votre IdP. Ne pas versionner les secrets."
+}
