@@ -1,0 +1,19 @@
+@startuml
+title OIDC Authorization Code + PKCE
+actor User
+participant Application
+participant "Authorization Server / IdP" as IdP
+participant "Resource API" as API
+
+User -> Application : access protected resource
+Application -> Application : create state + PKCE verifier/challenge
+Application -> IdP : /authorize + state + PKCE challenge
+IdP -> User : authenticate / MFA if required
+IdP --> Application : authorization code + state
+Application -> IdP : token request + code verifier
+IdP --> Application : ID token / access token
+Application -> API : access token
+API -> API : validate iss/aud/signature/exp + authorization
+API --> Application : response
+Application --> User : protected result
+@enduml
