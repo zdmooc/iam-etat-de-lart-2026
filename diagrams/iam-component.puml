@@ -1,0 +1,27 @@
+@startuml
+title Enterprise IAM - Component View
+actor User
+actor Partner
+component "Authoritative Sources\nHR / Directory" as SRC
+component "Identity Provider\nOIDC / SAML / MFA" as IDP
+component "Provisioning\nSCIM / JML" as SCIM
+component "API Gateway / PEP" as GW
+component "Application / Resource Server" as APP
+component "Policy Decision Point" as PDP
+component "PAM / JIT" as PAM
+component "ITDR / SIEM / SOAR" as ITDR
+node "Kubernetes / OpenShift" as K8S
+
+SRC --> IDP
+SRC --> SCIM
+User --> IDP
+Partner --> IDP
+IDP --> GW : tokens / federation
+GW --> APP
+GW --> PDP : decision
+APP --> PDP : fine-grained decision
+SCIM --> APP : lifecycle
+PAM --> K8S : privileged access
+ITDR --> IDP : risk/session signals
+ITDR --> GW : enforcement signals
+@enduml
